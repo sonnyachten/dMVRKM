@@ -1,6 +1,7 @@
 # Duality in Multi-View Restricted Kernel Machines
 ## Useful links
 [Project page](www.sonnyachten.com/dMVRKM)
+
 [Paper](www.google.comhttps://arxiv.org/abs/2305.17251)
 
 ## Abstract

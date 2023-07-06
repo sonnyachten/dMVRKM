@@ -1,6 +1,9 @@
-# Duality in MV-RKM
-Primal/Dual Multi-view Restricted Kernel Machine
+# Duality in Multi-View Restricted Kernel Machines
+## Project page
+`www.sonnyachten.com/dMVRKM`
 
+## Abstract
+We propose a unifying setting that combines existing restricted kernel machine methods into a single primal-dual multi-view framework for kernel principal component analysis in both supervised and unsupervised settings. We derive the primal and dual representations of the framework and relate different training and inference algorithms from a theoretical perspective. We show how to achieve full equivalence in primal and dual formulations by rescaling primal variables. Finally, we experimentally validate the equivalence and provide insight into the relationships between different methods on a number of time series data sets by recursively forecasting unseen test data and visualizing the learned features.
 
 ## Usage
 

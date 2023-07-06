@@ -1,0 +1,5 @@
+# @package _global_
+name: Recurrent_RKM_NAR_primal
+
+arch:
+  _target_: [srcs.model.MV_RKM_nar_primal.Multiview_RKM_NAR_primal]

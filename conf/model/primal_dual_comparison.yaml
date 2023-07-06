@@ -1,0 +1,6 @@
+# @package _global_
+name: primal_dual_test
+
+arch:
+  _target_: [srcs.model.MV_RKM_nar_primal.Multiview_RKM_NAR_primal,
+             srcs.model.MV_RKM_nar_dual.Multiview_RKM_NAR_Dual]

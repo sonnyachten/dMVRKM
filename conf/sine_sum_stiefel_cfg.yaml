@@ -1,0 +1,50 @@
+log_dir: ${name}/
+resume:
+verbose: True # For various plots during training
+
+metrics:
+  - _target_: srcs.model.metric.MSE
+  - _target_: srcs.model.metric.MAE
+
+defaults:
+  - data: sine_sum
+
+arch:
+  _target_: [srcs.model.MV_RKM_nar_stiefel.MV_RKM_nar_stiefel]
+
+hyperparameters:
+  device: cpu  # device type: cuda or cpu
+  decomposition_method: "svd" # Options: ['eigen', 'svd']
+  lag: 40 # Time series lag.
+  n_steps_ahead: 1 # `n` step-ahead prediction
+  s: 4 # Number of components.
+  mode: dual   # primal/dual
+
+  # For X view --------------------------------------------------------------
+  encoderx:
+    - _target_: srcs.model.nn.identity
+  decoderx:
+    - _target_: srcs.model.nn.identity
+  center_K_x: True # Center kernel matrix.
+
+  # For Y (view) view --------------------------------------------------------
+  encodery:
+    - _target_: srcs.model.nn.identity
+  decodery:
+    - _target_: srcs.model.nn.identity
+  center_K_y: True # Center kernel matrix.
+
+  # Pre-image method settings ------------------------------------------------
+  pre_image_method: "kernel_smoother"
+  nearest_neighbours: 1
+
+ # Other settings -------------------------------------
+  mb_size: 1000  # Mini-batch size
+  lr: 2e-4  # Input learning rate for ADAM optimizer
+  lrg: 2e-3  # Input learning rate for Cayley_ADAM optimizer
+  max_epochs: 90000  # Input max_epoch
+  shuffle: True
+  recon_loss: srcs.model.metric.MSE
+  optimise_U: joint   # options: `joint` for U and `split` for Ux, Uy
+
+

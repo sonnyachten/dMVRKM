@@ -1,0 +1,44 @@
+log_dir: ${name}/
+resume:
+verbose: True # For various plots during training
+
+metrics:
+  - _target_: srcs.model.metric.MSE
+  - _target_: srcs.model.metric.MAE
+
+defaults:
+  - data: santafe
+  - model: primal_dual_comparison # MV_RKM_nar_stiefel/primal_dual_comparison
+
+#mode: x_to_y
+hyperparameters:
+  device: cpu  # device type: cuda or cpu
+  decomposition_method: "svd" # Options: ['eigen', 'svd']
+  lag: 70 # Time series lag.
+  n_steps_ahead: 1 # `n` step-ahead prediction
+  s: 144 # Number of components.
+
+  # For X view --------------------------------------------------------------
+  kernel_x: "rbf"
+  sigma_x: 2.1856 # RBF kernel parameter.
+  center_K_x: True # Center kernel matrix.
+
+  # For Y (view) view --------------------------------------------------------
+  kernel_y: "linear" # Options: ['rbf', 'linear']
+  sigma_y: 0.1925 # RBF kernel parameter.
+  center_K_y: True # Center kernel matrix.
+
+  #  # Pre-image method settings ------------------------------------------------
+  pre_image_method: "kernel_smoother"
+  nearest_neighbours: 1
+
+  # Tests ----------------------------------------------------------------------
+  #  pre_image_method: 'ridge_regression'
+  #  ridge_regression_alpha: 0.0001
+  #  ridge_regression_rbf_sigma: 8
+
+  # Primal parameters ----------------------------------------------------------------------
+  approximator_x: "rff" #'rff' or 'nystroem'
+  approximator_y: "rff" #'rff' or 'nystroem'
+  DIM_FEATURES_x: 5000
+  DIM_FEATURES_y: 5000

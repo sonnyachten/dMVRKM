@@ -1,0 +1,26 @@
+log_dir: ${name}/
+resume:
+verbose: True # For various plots during training
+
+metrics:
+  - _target_: srcs.model.metric.MSE
+  - _target_: srcs.model.metric.MAE
+
+defaults:
+  - data: sine_sum
+  - model: primal_dual_comparison # MV_RKM_nar_stiefel/primal_dual_comparison
+
+hyperparameters:
+  device: cpu  # device type: cuda or cpu
+  decomposition_method: "svd" # Options: ['eigen', 'svd']
+  lag: 40 # Time series lag.
+  n_steps_ahead: 1 # `n` step-ahead prediction
+  s: 4 # Number of components.
+
+  # For X view --------------------------------------------------------------
+  kernel_x: "linear"
+  center_K_x: True # Center kernel matrix.
+
+  # For Y (view) view --------------------------------------------------------
+  kernel_y: "linear" # Options: ['rbf', 'linear']
+  center_K_y: True # Center kernel matrix.

@@ -1,0 +1,33 @@
+# @package _global_
+name: Recurrent_RKM_NAR_stiefel
+
+arch:
+  _target_: [srcs.model.MV_RKM_nar_stiefel.MV_RKM_nar_stiefel]
+
+hyperparameters:
+  # When pre_trained_model_path is given, other settings are ignored.
+  # Comment it out to use other settings to train the model.
+  pre_trained_model_path: 'outputs/2023-05-21/10-08-41/model_stiefel.pt'  # mb_size: 200
+
+  mb_size: 1000  # Mini-batch size
+  lr: 2e-4  # Input learning rate for ADAM optimizer
+  lrg: 2e-3  # Input learning rate for Cayley_ADAM optimizer
+  max_epochs: 1  # Input max_epoch
+  shuffle: True
+  recon_loss: srcs.model.metric.MSE
+  optimise_U: joint   # options: `joint` for U and `split` for Ux, Uy
+  mode: dual   # primal/dual
+
+# Encoder/encoder Architecture -----------------------------
+  nn: MLP  # options 'MLP', 'LSTM'
+  h_dims: [2, 2]  #
+
+  encoderx:
+    - _target_: srcs.model.nn.Random_Fourier_Encoder
+  decoderx: 
+    - _target_: srcs.model.nn.identity
+
+  encodery: 
+    - _target_: srcs.model.nn.identity
+  decodery:
+    - _target_: srcs.model.nn.identity
